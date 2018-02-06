@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,11 +20,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        window?.rootViewController = ViewController()
+        window?.rootViewController = setupTabBarController()
+        
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-3940256099942544~1458002511")
         
         return true
     }
 
+    private func setupTabBarController() -> UITabBarController {
+        
+        let tabBarController = UITabBarController()
+        let vc1 = UINavigationController(rootViewController: ViewController())
+        let vc2 = UINavigationController(rootViewController: SecondViewController())
+
+        tabBarController.viewControllers = [vc1, vc2]
+
+        return tabBarController
+    }
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
